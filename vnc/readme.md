@@ -17,7 +17,7 @@ curl https://github.com/ganboing/clic-config/raw/master/vnc/xstartup --create-di
 chmod +x ~/.vnc/xstartup
 ```
 
-If you would like to change the script, you are very welcomed to. It is the script which will be invoked at the creation of the new Window. My script will create the GNOME login session for you. If you do not need to make any changes, then you are done with configuration!
+If you would like to change the script, you are very welcomed to. The script will be invoked at the creation of the new Window. My script will create the GNOME login session for you. If you do not need to make any changes, then you are done with configuration!
 
 ## Run ##
 
