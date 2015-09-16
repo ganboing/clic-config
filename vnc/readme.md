@@ -13,7 +13,7 @@ UNIX-like OSes, including Linux, use X Window System to host GUI processes. The 
 Simply download the "xstartup" file from the same directory in Github to your "~/.vnc" directory. Curl and chmod will do the job by
 
 ```
-curl https://github.com/ganboing/clic-config/raw/master/vnc/xstartup --create-dirs -o ~/.vnc/xstartup
+curl https://raw.githubusercontent.com/ganboing/clic-config/master/vnc/xstartup --create-dirs -o ~/.vnc/xstartup
 chmod +x ~/.vnc/xstartup
 ```
 
