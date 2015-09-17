@@ -66,9 +66,9 @@ Remote Host: localhost
        Port: 5910
 
 [x] Use SSH tunneling
-SSH Server:  beijing.clic.cs.columbia.edu
-SSH Port:    22
-SSH User:    bg2539
+ SSH Server: beijing.clic.cs.columbia.edu
+   SSH Port: 22
+   SSH User: bg2539
 ```
 
 ## Kill Running Desktop ##
