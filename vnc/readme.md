@@ -39,7 +39,11 @@ to see the currently running desktop and their corresponding user. For instance,
 vncserver :10 -geometry 1920x1080 -localhost
 ```
 
-to start a virtual desktop with id 10 of resolution 1920x1080 on the host "beijing" which only accept connection from localhost. I would always prefer the "-localhost" (only allow local connection) option to prevent security issue since the VNC connection is not encrypted. If you invoke "vncserver" for the first time, it will prompt you to enter a password. Note that only the first 8 characters will actually count. To connect to the desktop, first use the SSH client to tunnel the VNC port from the CLIC machine to your own computer. In my case, I would use
+to start a virtual desktop of id 10 of resolution 1920x1080 on the host "beijing" which only accept connection from localhost. I would always prefer the "-localhost" (only allow local connection) option to prevent security issue since the VNC connection is not encrypted. If you invoke "vncserver" for the first time, it will prompt you to enter a password. Note that only the first 8 characters will actually count. 
+
+## Connect to Virtual Desktop ##
+
+To connect to the desktop, first use the SSH client to tunnel the VNC port from the CLIC machine to your own computer. In my case, I would use
 
 ```
 ssh -L 8080:localhost:5910 bg2539@beijing.clic.cs.columbia.edu
@@ -53,15 +57,17 @@ vncviewer ::8080
 
 You should be able to see the GNOME desktop after typing in your password.
 
-I also found that tightvnc has a nice Java version which could do SSH tunneling along with the VNC connection. The Java version also runs on the library machines:) If you ever need to use it, go to www.tightvnc.com and download. Be aware that the Java version will prompt for the SSH password first and the VNC password later.
+I also found that tightvnc has a nice Java version which could do SSH tunneling along with the VNC connection. The Java version also runs on the library machines:) If you ever need to use it, go to http://www.tightvnc.com/download.php and download. Be aware that the Java version will prompt for the SSH password first and the VNC password later.
 
 ## Kill Running Desktop ##
 
-You can terminate a running desktop using the "vncserver" program as well. Assume you want to kill the desktop with id 10 that previously created,
+You can terminate a running desktop using the "vncserver" program as well. Assume you want to kill the desktop of id 10 that previously created,
 
 ```
 vncserver -kill :10
 ```
+
+Please be careful that any GUI process running on the desktop of id 10 will be terminated immediately.
 
 ## Security ##
 
@@ -71,3 +77,6 @@ Although the VNC connection itself is not encrypted, the SSH Server will encrypt
 vncpasswd
 ```
 
+## Miscellaneous Issues ##
+
+If you encounter malfunction of text selection using mouse, disable "Accept clipboard from viewers" and "Send clipboard to viewers" in the VNC config dialog box. You can click the icon in the taskbar to bring the VNC config box to front.
