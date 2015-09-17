@@ -59,6 +59,18 @@ You should be able to see the GNOME desktop after typing in your password.
 
 I also found that tightvnc has a nice Java version which could do SSH tunneling along with the VNC connection. The Java version also runs on the library machines:) If you ever need to use it, go to http://www.tightvnc.com/download.php and download. Be aware that the Java version will prompt for the SSH password first and the VNC password later.
 
+Sample config of tightvnc Java looks like the following:
+
+```
+Remote Host: localhost
+       Port: 5910
+
+[x] Use SSH tunneling
+SSH Server:  beijing.clic.cs.columbia.edu
+SSH Port:    22
+SSH User:    bg2539
+```
+
 ## Kill Running Desktop ##
 
 You can terminate a running desktop using the "vncserver" program as well. Assume you want to kill the desktop of id 10 that previously created,
