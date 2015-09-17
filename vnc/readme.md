@@ -39,7 +39,7 @@ to see the currently running desktop and their corresponding user. For instance,
 vncserver :10 -geometry 1920x1080 -localhost
 ```
 
-to start a virtual desktop of id 10 of resolution 1920x1080 on the host "beijing" which only accept connection from localhost. I would always prefer the "-localhost" (only allow local connection) option to prevent security issue since the VNC connection is not encrypted. If you invoke "vncserver" for the first time, it will prompt you to enter a password. Note that only the first 8 characters will actually count. 
+to start a virtual desktop of id 10 of resolution 1920x1080 on the host "beijing" which only accept connection from localhost. I would always prefer the "-localhost" (only allow local connection) option to prevent security issue since otherwise the port will be open to the whole world. If you invoke "vncserver" for the first time, it will prompt you to enter a password. Note that only the first 8 characters will actually count. 
 
 ## Connect to Virtual Desktop ##
 
@@ -49,7 +49,7 @@ To connect to the desktop, first use the SSH client to tunnel the VNC port from 
 ssh -L 8080:localhost:5910 bg2539@beijing.clic.cs.columbia.edu
 ```
 
-This essentially forward all traffic sent to localhost:8080 from my own computer to localhost:5910 on the remote CLIC host. You can choose a different local port number rather than 8080 if there is another program which happens to listen to the same port. However you need to specify 5910 as the port number on the remote host, since by default, VNC Server listens to the port of 5900 plus the desktop id. Then I could use any SSH client to connect to localhost:8080. For example,
+This essentially forward all traffic sent to localhost:8080 from my own computer to localhost:5910 on the remote CLIC host. You can choose a different local port number rather than 8080 if there is another program which happens to listen to the same port. However you need to specify 5910 as the port number on the remote host, since by default, VNC Server listens to the port of 5900 plus the desktop id. Then I could use any VNC client to connect to localhost:8080. For example,
 
 ```
 vncviewer ::8080
