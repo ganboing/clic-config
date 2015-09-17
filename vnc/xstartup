@@ -8,4 +8,4 @@
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 xsetroot -solid grey
 vncconfig -iconic &
-gnome-session &
+gnome-session --session=ubuntu-2d &
