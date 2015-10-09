@@ -1,0 +1,32 @@
+default: usr/local tmp opt package-list.txt profile
+
+tmp:
+	mkdir tmp
+
+package-list.txt: $(HOME)/packages
+	for package in $(HOME)/packages/*.deb; \
+	do \
+	  dpkg-deb -X $$package ./ >> package-list.txt; \
+	done;
+
+usr/local: $(HOME)/local
+	mkdir -p usr
+	cp -r $(HOME)/local usr/
+	touch usr/local
+
+opt:
+	mkdir opt
+	ln -s $(HOME)/workspace/make-opt opt/Makefile
+
+profile:
+	mkdir profile
+	for dotdir in $(HOME)/settings/.*; \
+	do \
+	  echo $$dotdir;\
+	  mkdir -p `readlink -f $$dotdir`; \
+	done;
+
+clean:
+	rm -rf *
+
+.PHONY: default clean
