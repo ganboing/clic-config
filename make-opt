@@ -1,37 +1,47 @@
-eclipse: eclipse.tar.gz
+REPO=compute08:/run/shm/softwares
+
+eclipse: jdk1.7 eclipse.tar.gz
 	tar -xf eclipse.tar.gz
 	mkdir -p eclipse/metadata
+	mkdir -p eclipse/recommenders
+	mkdir -p eclipse/RemoteSystemsTempFiles
 
 eclipse.tar.gz:
-	scp compute08:/run/shm/softwares/eclipse.tar.gz ./
+	scp $(REPO)/eclipse.tar.gz ./
 
-idea-IU: idea-IU.tar.gz
+android-sdk-linux: jdk1.7 android-sdk.tgz
+	tar -xf android-sdk.tgz
+
+android-sdk.tgz:
+	scp $(REPO)/android-sdk.tgz ./
+
+idea-IU: jdk1.7 idea-IU.tar.gz
 	mkdir -p idea-IU-alternative
 	cd idea-IU-alternative && tar -xf ../idea-IU.tar.gz && ln -f -s idea-IU-alternative/`ls` ../idea-IU
 
 idea-IU.tar.gz:
-	scp compute08:/run/shm/softwares/idea-IU.tar.gz ./
+	scp $(REPO)/idea-IU.tar.gz ./
 
 jdk1.7: jdk1.7.tar.gz
 	mkdir -p jdk1.7-alternative
 	cd jdk1.7-alternative && tar -xf ../jdk1.7.tar.gz && ln -f -s jdk1.7-alternative/`ls` ../jdk1.7
 
 jdk1.7.tar.gz:
-	scp compute08:/run/shm/softwares/jdk1.7.tar.gz ./
+	scp $(REPO)/jdk1.7.tar.gz ./
 
 jdk1.8: jdk1.8.tar.gz
 	mkdir -p jdk1.8-alternative
 	cd jdk1.8-alternative && tar -xf ../jdk1.8.tar.gz && ln -f -s jdk1.8-alternative/`ls` ../jdk1.8
 
 jdk1.8.tar.gz:
-	scp compute08:/run/shm/softwares/jdk1.8.tar.gz ./
+	scp $(REPO)/jdk1.8.tar.gz ./
 
-activator: activator.zip
+activator: jdk1.8 activator.zip
 	mkdir -p activator-alternative
 	cd activator-alternative && unzip ../activator.zip && ln -f -s activator-alternative/`ls` ../activator
 
 activator.zip:
-	scp compute08:/run/shm/softwares/activator.zip ./
+	scp $(REPO)/activator.zip ./
 
 bcompare: bcompare.tar.gz
 	mkdir bcompare
@@ -39,9 +49,9 @@ bcompare: bcompare.tar.gz
 	cd bcompare-setup && tar -xf ../bcompare.tar.gz && `ls`/install.sh --prefix=$(MYCHROOT)/opt/bcompare
 
 bcompare.tar.gz:
-	scp compute08:/run/shm/softwares/bcompare.tar.gz ./
+	scp $(REPO)/bcompare.tar.gz ./
 
-.PHONY: clean clean-eclipse clean-idea clean-jdk clean-activator clean-bcompare
+.PHONY: clean clean-eclipse clean-idea clean-jdk clean-activator clean-bcompare clean-android-sdk
 
 clean-eclipse:
 	rm -rf eclipse eclipse.tar.gz
@@ -53,6 +63,8 @@ clean-activator:
 	rm -rf activator activator.zip activator-alternative
 clean-bcompare:
 	rm -rf bcompare bcompare.tar.gz bcompare-setup
+clean-android-sdk:
+	rm -rf android-sdk-linux android-sdk.tgz
 
-clean: clean-eclipse clean-idea clean-jdk clean-activator clean-bcompare
+clean: clean-eclipse clean-idea clean-jdk clean-activator clean-bcompare clean-android-sdk
 

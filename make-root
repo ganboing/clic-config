@@ -18,8 +18,8 @@ opt:
 	mkdir opt
 	ln -s $(HOME)/workspace/make-opt opt/Makefile
 
-profile:
-	mkdir profile
+profile: $(HOME)/settings
+	mkdir -p profile
 	for dotdir in $(HOME)/settings/.*; \
 	do \
 	  echo $$dotdir;\
