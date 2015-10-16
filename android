@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ANDROID=$MYCHROOT/opt/android-sdk-linux/tools/android
+(cd $MYCHROOT/opt && make android-sdk-linux)
+$ANDROID $*

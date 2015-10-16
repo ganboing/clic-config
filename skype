@@ -1,0 +1,4 @@
+#!/bin/sh
+
+SKYPE=$MYCHROOT/usr/bin/skype
+$SKYPE $*

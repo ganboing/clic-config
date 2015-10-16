@@ -1,0 +1,5 @@
+#!/bin/sh
+
+BCOMPARE=$MYCHROOT/opt/bcompare/bin/bcompare
+(cd $MYCHROOT/opt && make bcompare)
+$BCOMPARE $*

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+ACTIVATOR=$MYCHROOT/opt/activator/activator
+export JAVA_HOME=$MYCHROOT/opt/jdk1.8
+(cd $MYCHROOT/opt && make activator)
+$ACTIVATOR $*

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+PRELINK=$MYCHROOT/usr/sbin/prelink.bin
+$PRELINK -c $MYCHROOT/etc/prelink.conf -C $MYCHROOT/etc/prelink.cache "$@"

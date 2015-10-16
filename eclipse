@@ -1,0 +1,6 @@
+#!/bin/sh
+
+ECLIPSE=$MYCHROOT/opt/eclipse/eclipse
+export JAVA_HOME=$MYCHROOT/opt/jdk1.7
+(cd $MYCHROOT/opt && make eclipse)
+$ECLIPSE -vm $JAVA_HOME/bin/java $*
