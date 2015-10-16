@@ -1,0 +1,21 @@
+#!/bin/sh
+
+#export SHA1_TEST_BASE=$HOME/workspace/sha1-test/sha1-test-cloud
+#export SHA1_TEST_CONTROLLER=compute04
+
+export LANG="en_US.UTF-8"
+export MYCHROOT=/run/shm/boroot
+
+mkdir -p $MYCHROOT
+ln -f -s $HOME/workspace/make-root $MYCHROOT/Makefile
+(cd $MYCHROOT && make)
+
+. "$HOME/bin/set-env-chroot"
+PERL5LIB=$MYCHROOT/usr/lib/perl5
+
+#export PATH
+export MANPATH
+export LD_LIBRARY_PATH
+export LIBRARY_PATH
+export C_INCLUDE_PATH
+export PERL5LIB

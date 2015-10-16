@@ -1,0 +1,11 @@
+default:
+
+bin/wine:
+	cd ../../tmp && rm -rf wine-1.7.9 && wget "http://mirrors.ibiblio.org/wine/source/1.7/wine-1.7.9.tar.bz2" && \
+	  tar -xf wine-1.7.9.tar.bz2 && cd wine-1.7.9 && \
+	  PKG_CONFIG_PATH=$(PWD)/../lib/i386-linux-gnu/pkgconfig:$(PWD)/../lib/pkgconfig LDFLAGS=-Wl,-rpath=$(PWD)/../lib/i386-linux-gnu ./configure --prefix=$(PWD) && make && make install
+
+bin/ocproxy:
+	cd ../../tmp && rm -rf ocproxy && git clone https://github.com/cernekee/ocproxy.git && \
+	  cd ocproxy && ./autogen.sh && ./configure --prefix=$(PWD) && make && make install
+

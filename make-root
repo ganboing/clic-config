@@ -4,15 +4,18 @@ tmp:
 	mkdir tmp
 
 package-list.txt: $(HOME)/packages
+	rm -rf package-list.txt
 	for package in $(HOME)/packages/*.deb; \
 	do \
+	  echo $$package | tee -a package-list.txt; \
 	  dpkg-deb -X $$package ./ >> package-list.txt; \
 	done;
+	(cd usr/lib/pkgconfig && ~/bin/fix-pkgconfig-prefix.sh)
+	(cd usr/lib/i386-linux-gnu/pkgconfig && ~/bin/fix-pkgconfig-prefix.sh)
 
-usr/local: $(HOME)/local
-	mkdir -p usr
-	cp -r $(HOME)/local usr/
-	touch usr/local
+usr/local:
+	mkdir -p usr/local
+	ln -s $(HOME)/workspace/make-local usr/local/Makefile
 
 opt:
 	mkdir opt

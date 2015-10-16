@@ -46,7 +46,7 @@ activator.zip:
 bcompare: bcompare.tar.gz
 	mkdir bcompare
 	mkdir -p bcompare-setup
-	cd bcompare-setup && tar -xf ../bcompare.tar.gz && `ls`/install.sh --prefix=$(MYCHROOT)/opt/bcompare
+	cd bcompare-setup && tar -xf ../bcompare.tar.gz && `ls`/install.sh --prefix=$(PWD)/bcompare
 
 bcompare.tar.gz:
 	scp $(REPO)/bcompare.tar.gz ./
