@@ -10,10 +10,11 @@ UNIX-like OSes, including Linux, use X Window System to host GUI processes. The 
 
 ## Configure It in CLIC ##
 
-Simply download the "xstartup" file from the same directory in Github to your "~/.vnc" directory. Curl and chmod will do the job by
+Simply download the "xstartup" and "metacity" from the same directory in Github to your "~/.vnc" directory. Curl and chmod will do the job by
 
 ```
 curl https://raw.githubusercontent.com/ganboing/clic-config/master/vnc/xstartup --create-dirs -o ~/.vnc/xstartup
+curl https://raw.githubusercontent.com/ganboing/clic-config/master/vnc/metacity --create-dirs -o ~/bin/metacity
 chmod +x ~/.vnc/xstartup
 ```
 
