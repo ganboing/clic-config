@@ -22,13 +22,13 @@ If you would like to change the script, you are very welcomed to. The script wil
 
 ## Run ##
 
-Since the VNC Server runs on a specific machine, it is essential that you connect to the same CLIC machine to use the same virtual desktop. That being said, you need to specify a host to connect rather than clic-lab. For example, I would like to start a virtual desktop on the host "beijing" in CLIC, then I can use
+Since the VNC Server runs on a specific machine, it is essential that you connect to the same CLIC machine to use the same virtual desktop. That being said, you need to specify a host to connect rather than clic-lab. For example, I would like to start a virtual desktop on the host "baghdad" in CLIC, then I can use
 
 ```
-ssh bg2539@beijing.clic.cs.columbia.edu
+ssh bg2539@baghdad.clic.cs.columbia.edu
 ```
 
-to specifically connect to "beijing" (A almost complete list of CLIC machines can be found here https://github.com/ganboing/clic-config/raw/master/clic-hosts). After that you need to choose a desktop id for the new desktop to start. Be reminded that the desktop id is unique for each host, so you need to pick a desktop id which nobody has been using. You can use the command
+to specifically connect to "baghdad" (A almost complete list of CLIC machines can be found here https://github.com/ganboing/clic-config/raw/master/clic-hosts). After that you need to choose a desktop id for the new desktop to start. Be reminded that the desktop id is unique for each host, so you need to pick a desktop id which nobody has been using. You can use the command
 
 ```
 ls -al /tmp/.X11-unix
@@ -40,14 +40,14 @@ to see the currently running desktop and their corresponding user. For instance,
 vncserver :10 -geometry 1920x1080 -localhost
 ```
 
-to start a virtual desktop of id 10 of resolution 1920x1080 on the host "beijing" which only accept connection from localhost. I would always prefer the "-localhost" (only allow local connection) option to prevent security issue since otherwise the port will be open to the whole world. If you invoke "vncserver" for the first time, it will prompt you to enter a password. Note that only the first 8 characters will actually count. 
+to start a virtual desktop of id 10 of resolution 1920x1080 on the host "baghdad" which only accept connection from localhost. I would always prefer the "-localhost" (only allow local connection) option to prevent security issue since otherwise the port will be open to the whole world. If you invoke "vncserver" for the first time, it will prompt you to enter a password. Note that only the first 8 characters will actually count. 
 
 ## Connect to Virtual Desktop ##
 
 To connect to the desktop, first use the SSH client to tunnel the VNC port from the CLIC machine to your own computer. In my case, I would use
 
 ```
-ssh -L 8080:localhost:5910 bg2539@beijing.clic.cs.columbia.edu
+ssh -L 8080:localhost:5910 bg2539@baghdad.clic.cs.columbia.edu
 ```
 
 This essentially forward all traffic sent to localhost:8080 from my own computer to localhost:5910 on the remote CLIC host. You can choose a different local port number rather than 8080 if there is another program which happens to listen to the same port. However you need to specify 5910 as the port number on the remote host, since by default, VNC Server listens to the port of 5900 plus the desktop id. Then I could use any VNC client to connect to localhost:8080. For example,
@@ -67,7 +67,7 @@ Remote Host: localhost
        Port: 5910
 
 [x] Use SSH tunneling
- SSH Server: beijing.clic.cs.columbia.edu
+ SSH Server: baghdad.clic.cs.columbia.edu
    SSH Port: 22
    SSH User: bg2539
 ```
