@@ -5,7 +5,8 @@
 
 export LANG="en_US.UTF-8"
 export MYCHROOT=/run/shm/boroot
-
+export MYSTORAGE=/var/tmp/bodisk
+mkdir -p $MYSTORAGE
 mkdir -p $MYCHROOT
 ln -f -s $HOME/workspace/make-root $MYCHROOT/Makefile
 (cd $MYCHROOT && make)

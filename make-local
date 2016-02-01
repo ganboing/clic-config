@@ -1,9 +1,19 @@
+WINE_PACKAGE=wine-1.7.55
+WINE_URL="https://ftp.winehq.org/pub/wine/source/1.7/wine-1.7.55.tar.bz2"
+#NVIDIA_VERSION=nvidia-346
+
 default:
 
-bin/wine:
-	cd ../../tmp && rm -rf wine-1.7.9 && wget "http://mirrors.ibiblio.org/wine/source/1.7/wine-1.7.9.tar.bz2" && \
-	  tar -xf wine-1.7.9.tar.bz2 && cd wine-1.7.9 && \
-	  PKG_CONFIG_PATH=$(PWD)/../lib/i386-linux-gnu/pkgconfig:$(PWD)/../lib/pkgconfig LDFLAGS=-Wl,-rpath=$(PWD)/../lib/i386-linux-gnu ./configure --prefix=$(PWD) && make && make install
+../../tmp/$(WINE_PACKAGE).tar.bz2:
+	cd ../../tmp; wget $(WINE_URL)
+
+../../tmp/$(WINE_PACKAGE): ../../tmp/$(WINE_PACKAGE).tar.bz2
+	cd ../../tmp; tar -xf $(WINE_PACKAGE).tar.bz2
+#&& patch $(WINE_PACKAGE)/configure < $(HOME)/workspace/wine.configure.patch
+
+bin/wine: ../../tmp/$(WINE_PACKAGE)
+	cd ../../tmp/$(WINE_PACKAGE); \
+	PKG_CONFIG_PATH=$(PWD)/../lib/i386-linux-gnu/pkgconfig:$(PWD)/../lib/pkgconfig LDFLAGS=-Wl,-rpath=$(PWD)/../lib/i386-linux-gnu bash -c "./configure --prefix=$(PWD) && make -j$(shell nproc) && make install"
 
 bin/ocproxy:
 	cd ../../tmp && rm -rf ocproxy && git clone https://github.com/cernekee/ocproxy.git && \

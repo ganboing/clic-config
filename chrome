@@ -1,0 +1,5 @@
+#!/bin/bash
+
+(cd $MYCHROOT/opt && make google/chrome)
+CHROME=$MYCHROOT/opt/google/chrome/google-chrome
+$CHROME --disable-setuid-sandbox $*

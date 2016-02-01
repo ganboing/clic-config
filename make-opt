@@ -1,16 +1,36 @@
-REPO=compute08:/run/shm/softwares
+REPO=compute08:/var/tmp/softwares
+
+default:
+	echo "no default"
+
+google/earth: google-earth-stable_current_amd64.deb
+	dpkg-deb -x google-earth-stable_current_amd64.deb ../
+	touch google/earth
+	cd google/earth/free && ln -s /lib64/ld-linux-x86-64.so.2 ld-lsb-x86-64.so.3 && sed -i 's:/lib64/ld-lsb-x86-64.so.3:.//////ld-lsb-x86-64.so.3:g' googleearth-bin
+
+google-earth-stable_current_amd64.deb:
+	wget "https://dl.google.com/dl/earth/client/current/google-earth-stable_current_amd64.deb"
+
+google/chrome: google-chrome-stable_current_amd64.deb
+	dpkg-deb -x google-chrome-stable_current_amd64.deb ../
+	touch google/chrome
+
+google-chrome-stable_current_amd64.deb:
+	wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 
 eclipse: jdk1.7 eclipse.tar.gz
 	tar -xf eclipse.tar.gz
 	mkdir -p eclipse/metadata
 	mkdir -p eclipse/recommenders
 	mkdir -p eclipse/RemoteSystemsTempFiles
+	touch eclipse
 
 eclipse.tar.gz:
 	scp $(REPO)/eclipse.tar.gz ./
 
 android-sdk-linux: jdk1.7 android-sdk.tgz
 	tar -xf android-sdk.tgz
+	touch android-sdk-linux
 
 android-sdk.tgz:
 	scp $(REPO)/android-sdk.tgz ./
@@ -25,6 +45,7 @@ idea-IU.tar.gz:
 jdk1.7: jdk1.7.tar.gz
 	mkdir -p jdk1.7-alternative
 	cd jdk1.7-alternative && tar -xf ../jdk1.7.tar.gz && ln -f -s jdk1.7-alternative/`ls` ../jdk1.7
+	touch jdk1.7
 
 jdk1.7.tar.gz:
 	scp $(REPO)/jdk1.7.tar.gz ./
@@ -32,6 +53,7 @@ jdk1.7.tar.gz:
 jdk1.8: jdk1.8.tar.gz
 	mkdir -p jdk1.8-alternative
 	cd jdk1.8-alternative && tar -xf ../jdk1.8.tar.gz && ln -f -s jdk1.8-alternative/`ls` ../jdk1.8
+	touch jdk1.8
 
 jdk1.8.tar.gz:
 	scp $(REPO)/jdk1.8.tar.gz ./
@@ -39,6 +61,7 @@ jdk1.8.tar.gz:
 activator: jdk1.8 activator.zip
 	mkdir -p activator-alternative
 	cd activator-alternative && unzip ../activator.zip && ln -f -s activator-alternative/`ls` ../activator
+	touch activator
 
 activator.zip:
 	scp $(REPO)/activator.zip ./
@@ -47,11 +70,12 @@ bcompare: bcompare.tar.gz
 	mkdir bcompare
 	mkdir -p bcompare-setup
 	cd bcompare-setup && tar -xf ../bcompare.tar.gz && `ls`/install.sh --prefix=$(PWD)/bcompare
+	touch bcompare
 
 bcompare.tar.gz:
 	scp $(REPO)/bcompare.tar.gz ./
 
-.PHONY: clean clean-eclipse clean-idea clean-jdk clean-activator clean-bcompare clean-android-sdk
+.PHONY: default clean clean-eclipse clean-idea clean-jdk clean-activator clean-bcompare clean-android-sdk
 
 clean-eclipse:
 	rm -rf eclipse eclipse.tar.gz

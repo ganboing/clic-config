@@ -1,32 +1,32 @@
-default: usr/local tmp opt package-list.txt profile
+default: usr/local/Makefile tmp/downloads opt/Makefile dotdirs.txt packages
 
-tmp:
-	mkdir tmp
+tmp/downloads:
+	mkdir -p tmp/downloads
 
-package-list.txt: $(HOME)/packages
-	rm -rf package-list.txt
+packages: $(HOME)/packages
+	rm -rf packages
 	for package in $(HOME)/packages/*.deb; \
 	do \
-	  echo $$package | tee -a package-list.txt; \
-	  dpkg-deb -X $$package ./ >> package-list.txt; \
+	  echo $$package | tee -a packages; \
+	  dpkg-deb -X $$package ./ >> packages; \
 	done;
 	(cd usr/lib/pkgconfig && ~/bin/fix-pkgconfig-prefix.sh)
 	(cd usr/lib/i386-linux-gnu/pkgconfig && ~/bin/fix-pkgconfig-prefix.sh)
 
-usr/local:
+usr/local/Makefile:
 	mkdir -p usr/local
 	ln -s $(HOME)/workspace/make-local usr/local/Makefile
 
-opt:
-	mkdir opt
+opt/Makefile:
+	mkdir -p opt
 	ln -s $(HOME)/workspace/make-opt opt/Makefile
 
-profile: $(HOME)/settings
-	mkdir -p profile
-	for dotdir in $(HOME)/settings/.*; \
+dotdirs.txt: $(HOME)/dotdirs
+	rm -rf dotdirs.txt
+	for dotdir in $(HOME)/dotdirs/*; \
 	do \
-	  echo $$dotdir;\
-	  mkdir -p `readlink -f $$dotdir`; \
+	  echo $$dotdir | tee -a dotdirs.txt;\
+	  mkdir -p `readlink $$dotdir`; \
 	done;
 
 clean:
